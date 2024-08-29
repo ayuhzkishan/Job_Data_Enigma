@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:text="ଆପଣଙ୍କର ବିବରଣୀ ଭରନ୍ତୁ"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ପୂର୍ଣ୍ଣ ନାମ *"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editTextFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ପୂର୍ଣ୍ଣ ନାମ ଭରନ୍ତୁ"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ଠିକଣା *"
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ଠିକଣା ଭରନ୍ତୁ"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextFields,TextContrastCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="10ମ ବର୍ଷ ସମାପ୍ତ *"
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/spinner10thYear"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <Button
+                android:id="@+id/buttonUploadFile_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#ff33b5e5"
+                android:textColor="#455A64"
+                android:text="ଛବି କିମ୍ବା PDF ଅପଲୋଡ୍ କରନ୍ତୁ"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="#F44336"
+                android:text="ହଟାନ୍ତୁ"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="12ମ ବର୍ଷ ସମାପ୍ତ"
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/spinner12thYear"
+            android:layout_width="147dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <Button
+                android:id="@+id/buttonUploadFile_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#ff33b5e5"
+                android:text="ଛବି କିମ୍ବା PDF ଅପଲୋଡ୍ କରନ୍ତୁ"
+                android:textColor="#455A64"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,HardcodedText" />
+
+            <Button
+                android:id="@+id/buttonDelete1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="#F44336"
+                android:text="ହଟାନ୍ତୁ"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="12ମ / ଡିପ୍ଲୋମା ବିଶେଷଣ"
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/spinner12thSpecialization"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ଡିପ୍ଲୋମା ବିଶେଷଣ"
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editTextDiplomaSpecialization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ଡିପ୍ଲୋମା ବିଶେଷଣ ଭରନ୍ତୁ"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextFields,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ଅତିରିକ୍ତ କୌଶଳ"
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editTextSkills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ଅନ୍ୟ କୌଶଳ ଭରନ୍ତୁ"
+            tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="ସବମିଟ୍ କରନ୍ତୁ"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="32dp"
+            tools:ignore="HardcodedText,ObsoleteLayoutParam" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/activity_splash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_rawRes="@raw/paytmanimation"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false" />
+
+    </LinearLayout>
+
+</ScrollView>
