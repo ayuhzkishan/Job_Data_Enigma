@@ -122,7 +122,17 @@ class HindiActivity : AppCompatActivity() {
 
             val userId = database.child("users").push().key
 
-            if (userId != null) {
+            if(editTextFullName.text.toString().isEmpty())
+                Toast.makeText(this, "नाम खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
+
+            else if(editTextAddress.text.toString().isEmpty())
+                Toast.makeText(this, "पता खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
+
+            else if(spinner10thYear.selectedItem.toString() == "N/A")
+                Toast.makeText(this, "10वीं पासिंग वर्ष खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
+
+
+            else if (userId != null) {
                 database.child("users").child(userId).setValue(user)
                 Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
 

@@ -119,7 +119,16 @@ class OdiaActivity : AppCompatActivity() {
 
             val userId = database.child("users").push().key
 
-            if (userId != null) {
+            if(editTextFullName.text.toString().isEmpty())
+                Toast.makeText(this, "ନାମ ଖାଲି ରହି ପାରିବ ନାହିଁ", Toast.LENGTH_SHORT).show()
+
+            else if(editTextAddress.text.toString().isEmpty())
+                Toast.makeText(this, "ଠିକଣା ଖାଲି ରହି ପାରିବ ନାହିଁ", Toast.LENGTH_SHORT).show()
+
+            else if(spinner10thYear.selectedItem.toString() == "N/A")
+                Toast.makeText(this, "ଦଶମ ଶ୍ରେଣୀ ପାସିଂ ବର୍ଷ ଖାଲି ରହି ପାରିବ ନାହିଁ", Toast.LENGTH_SHORT).show()
+
+            else if (userId != null) {
                 database.child("users").child(userId).setValue(user)
                 Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
 
