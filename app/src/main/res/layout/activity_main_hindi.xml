@@ -56,7 +56,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="संपर्क नंबर "
+            android:text="संपर्क नंबर *"
             android:textSize="18sp"
             android:padding="5dp"
             tools:ignore="HardcodedText" />

@@ -48,9 +48,8 @@ class OdiaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_odia)
-        findViewById<EditText>(R.id.editTextContacts)
-        var editTextContactNumbers = findViewById<EditText>(R.id.editTextContacts)
-        val buttonUpdateContact = findViewById<EditText>(R.id.editTextContacts)
+        val textViewContactNumbers = findViewById<EditText>(R.id.editTextContacts)
+
 
 
         database = FirebaseDatabase.getInstance().reference
@@ -64,7 +63,6 @@ class OdiaActivity : AppCompatActivity() {
         spinner12thSpecialization = findViewById(R.id.spinner12thSpecialization)
         editTextDiplomaSpecialization = findViewById(R.id.editTextDiplomaSpecialization)
         editTextSkills = findViewById(R.id.editTextSkills)
-        editTextContactNumbers = findViewById(R.id.editTextContacts)
         buttonUploadFile10 = findViewById(R.id.buttonUploadFile_10)
         buttonUploadFile12 = findViewById(R.id.buttonUploadFile_12)
         buttonSubmit = findViewById(R.id.buttonSubmit)
@@ -114,7 +112,7 @@ class OdiaActivity : AppCompatActivity() {
                 additionalSkills = editTextSkills.text?.toString(),
                 tenthCertificateUrl = tenthCertificateUri?.toString(),
                 twelfthCertificateUrl = twelfthCertificateUri?.toString(),
-               contactNumbers = editTextContactNumbers.text.toString()
+               contactNumbers = textViewContactNumbers.text.toString()
             )
 
             val userId = database.child("users").push().key
@@ -125,12 +123,20 @@ class OdiaActivity : AppCompatActivity() {
             else if(editTextAddress.text.toString().isEmpty())
                 Toast.makeText(this, "ଠିକଣା ଖାଲି ରହି ପାରିବ ନାହିଁ", Toast.LENGTH_SHORT).show()
 
+            else if(textViewContactNumbers.text.toString().length != 10)
+                Toast.makeText(this, "ଅବୈଧ ସଂପର୍କ ସଂଖ୍ୟା", Toast.LENGTH_SHORT).show()
+
             else if(spinner10thYear.selectedItem.toString() == "N/A")
                 Toast.makeText(this, "ଦଶମ ଶ୍ରେଣୀ ପାସିଂ ବର୍ଷ ଖାଲି ରହି ପାରିବ ନାହିଁ", Toast.LENGTH_SHORT).show()
+
+            else if(tenthCertificateUri == null)
+                Toast.makeText(this, "ଦଶମ ଶ୍ରେଣୀର ପ୍ରମାଣପତ୍ର ଖାଲି ରହି ପାରିବ ନାହିଁ", Toast.LENGTH_SHORT).show()
 
             else if (userId != null) {
                 database.child("users").child(userId).setValue(user)
                 Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                cleardata()
 
                 val animationView = findViewById<LottieAnimationView>(R.id.activity_splash)
                 animationView?.apply {
@@ -148,7 +154,7 @@ class OdiaActivity : AppCompatActivity() {
             }
             buttonSubmit.isEnabled = false
             buttonSubmit.postDelayed({ buttonSubmit.isEnabled = true }, 3200)
-            cleardata()
+
         }
     }
 

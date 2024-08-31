@@ -51,8 +51,7 @@ class EnglishActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main_english)
 
         val textViewContactNumbers = findViewById<EditText>(R.id.editTextContacts)
-        val editTextContactNumbers = findViewById<EditText>(R.id.editTextContacts)
-        val buttonUpdateContact = findViewById<EditText>(R.id.editTextContacts)
+
 
 
             database = FirebaseDatabase.getInstance().reference
@@ -123,12 +122,21 @@ class EnglishActivity : AppCompatActivity() {
                     else if(editTextAddress.text.toString().isEmpty())
                         Toast.makeText(this, "Address cannot be Empty", Toast.LENGTH_SHORT).show()
 
+                    else if(textViewContactNumbers.text.toString().length!= 10)
+                        Toast.makeText(this, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
+
                     else if(spinner10thYear.selectedItem.toString() == "N/A")
                         Toast.makeText(this, "10th Passing Year cannot be Empty", Toast.LENGTH_SHORT).show()
+
+                    else if(tenthCertificateUri == null)
+                        Toast.makeText(this, "10th Certificate cannot be Empty", Toast.LENGTH_SHORT).show()
 
                     else if (userId != null) {
                         database.child("users").child(userId).setValue(user)
                         Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                        cleardata()
+
 
                         val animationView = findViewById<LottieAnimationView>(R.id.activity_splash)
                         animationView?.apply {
@@ -145,7 +153,7 @@ class EnglishActivity : AppCompatActivity() {
                         Toast.makeText(this, "Failed to update profile!", Toast.LENGTH_SHORT).show()
                     }
 
-                    cleardata()
+
             }
 
 
