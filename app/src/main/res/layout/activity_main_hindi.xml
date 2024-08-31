@@ -53,6 +53,21 @@
             android:layout_height="wrap_content"
             android:hint="पता दर्ज करें"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="संपर्क नंबर "
+            android:textSize="18sp"
+            android:padding="5dp"
+            tools:ignore="HardcodedText" />
+        <EditText
+            android:id="@+id/editTextContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="संपर्क नंबर दर्ज करें"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -196,6 +211,7 @@
             android:layout_height="wrap_content"
             android:hint="अन्य कौशल दर्ज करें"
             tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize,TextContrastCheck" />
+
 
         <Button
             android:id="@+id/buttonSubmit"

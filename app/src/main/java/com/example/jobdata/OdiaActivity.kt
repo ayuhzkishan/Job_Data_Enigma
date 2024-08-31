@@ -14,10 +14,10 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.storage.StorageReference
 
 @Suppress("DEPRECATION")
@@ -44,10 +44,14 @@ class OdiaActivity : AppCompatActivity() {
     private var twelfthCertificateUri: Uri? = null
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_odia)
+        findViewById<EditText>(R.id.editTextContacts)
+        var editTextContactNumbers = findViewById<EditText>(R.id.editTextContacts)
+        val buttonUpdateContact = findViewById<EditText>(R.id.editTextContacts)
+
 
         database = FirebaseDatabase.getInstance().reference
         storage = FirebaseStorage.getInstance()
@@ -60,6 +64,7 @@ class OdiaActivity : AppCompatActivity() {
         spinner12thSpecialization = findViewById(R.id.spinner12thSpecialization)
         editTextDiplomaSpecialization = findViewById(R.id.editTextDiplomaSpecialization)
         editTextSkills = findViewById(R.id.editTextSkills)
+        editTextContactNumbers = findViewById(R.id.editTextContacts)
         buttonUploadFile10 = findViewById(R.id.buttonUploadFile_10)
         buttonUploadFile12 = findViewById(R.id.buttonUploadFile_12)
         buttonSubmit = findViewById(R.id.buttonSubmit)
@@ -108,7 +113,8 @@ class OdiaActivity : AppCompatActivity() {
                 diplomaSpecialisation = editTextDiplomaSpecialization.text?.toString(),
                 additionalSkills = editTextSkills.text?.toString(),
                 tenthCertificateUrl = tenthCertificateUri?.toString(),
-                twelfthCertificateUrl = twelfthCertificateUri?.toString()
+                twelfthCertificateUrl = twelfthCertificateUri?.toString(),
+               contactNumbers = editTextContactNumbers.text.toString()
             )
 
             val userId = database.child("users").push().key
@@ -132,7 +138,7 @@ class OdiaActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to update profile!", Toast.LENGTH_SHORT).show()
             }
             buttonSubmit.isEnabled = false
-            buttonSubmit.postDelayed({ buttonSubmit.isEnabled = true }, 5000)
+            buttonSubmit.postDelayed({ buttonSubmit.isEnabled = true }, 3200)
             cleardata()
         }
     }
@@ -228,5 +234,6 @@ class OdiaActivity : AppCompatActivity() {
         buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         tenthCertificateUri = null
         twelfthCertificateUri = null
+
     }
 }
