@@ -115,9 +115,18 @@ class EnglishActivity : AppCompatActivity() {
                     contactNumbers = textViewContactNumbers.text.toString()
 
                 )
-
                     val userId = database.child("users").push().key
-                    if (userId != null) {
+
+                    if(editTextFullName.text.toString().isEmpty())
+                        Toast.makeText(this, "Name cannot be Empty", Toast.LENGTH_SHORT).show()
+
+                    else if(editTextAddress.text.toString().isEmpty())
+                        Toast.makeText(this, "Address cannot be Empty", Toast.LENGTH_SHORT).show()
+
+                    else if(spinner10thYear.selectedItem.toString() == "N/A")
+                        Toast.makeText(this, "10th Passing Year cannot be Empty", Toast.LENGTH_SHORT).show()
+
+                    else if (userId != null) {
                         database.child("users").child(userId).setValue(user)
                         Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
 
