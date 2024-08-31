@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -49,7 +50,12 @@ class EnglishActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_english)
 
-        database = FirebaseDatabase.getInstance().reference
+        val textViewContactNumbers = findViewById<EditText>(R.id.editTextContacts)
+        val editTextContactNumbers = findViewById<EditText>(R.id.editTextContacts)
+        val buttonUpdateContact = findViewById<EditText>(R.id.editTextContacts)
+
+
+            database = FirebaseDatabase.getInstance().reference
         storage = FirebaseStorage.getInstance()
         storageReference = storage.reference
 
@@ -95,6 +101,7 @@ class EnglishActivity : AppCompatActivity() {
         }
 
             buttonSubmit.setOnClickListener {
+
                 val user = User(
                     fullName = editTextFullName.text.toString(),
                     address = editTextAddress.text.toString(),
@@ -104,7 +111,9 @@ class EnglishActivity : AppCompatActivity() {
                     diplomaSpecialisation = editTextDiplomaSpecialization.text?.toString(),
                     additionalSkills = editTextSkills.text?.toString(),
                     tenthCertificateUrl = tenthCertificateUri?.toString(),
-                    twelfthCertificateUrl = twelfthCertificateUri?.toString()
+                    twelfthCertificateUrl = twelfthCertificateUri?.toString(),
+                    contactNumbers = textViewContactNumbers.text.toString()
+
                 )
 
                     val userId = database.child("users").push().key

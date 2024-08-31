@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -49,8 +50,13 @@ class HindiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_hindi)
+        val textViewContactNumbers = findViewById<EditText>(R.id.editTextContacts)
+        val editTextContactNumbers = findViewById<EditText>(R.id.editTextContacts)
+        val buttonUpdateContact = findViewById<EditText>(R.id.editTextContacts)
 
-        database = FirebaseDatabase.getInstance().reference
+
+
+            database = FirebaseDatabase.getInstance().reference
         storage = FirebaseStorage.getInstance()
         storageReference = storage.reference
 
@@ -98,6 +104,9 @@ class HindiActivity : AppCompatActivity() {
         }
 
         buttonSubmit.setOnClickListener {
+
+
+
             val user = User(
                 fullName = editTextFullName.text.toString(),
                 address = editTextAddress.text.toString(),
@@ -107,7 +116,8 @@ class HindiActivity : AppCompatActivity() {
                 diplomaSpecialisation = editTextDiplomaSpecialization.text?.toString(),
                 additionalSkills = editTextSkills.text?.toString(),
                 tenthCertificateUrl = tenthCertificateUri?.toString(),
-                twelfthCertificateUrl = twelfthCertificateUri?.toString()
+                twelfthCertificateUrl = twelfthCertificateUri?.toString(),
+               contactNumbers = editTextContactNumbers.text.toString()
             )
 
             val userId = database.child("users").push().key
@@ -132,7 +142,7 @@ class HindiActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to update profile!", Toast.LENGTH_SHORT).show()
             }
             buttonSubmit.isEnabled = false
-            buttonSubmit.postDelayed({ buttonSubmit.isEnabled = true }, 5000)
+            buttonSubmit.postDelayed({ buttonSubmit.isEnabled = true }, 3200)
             cleardata()
         }
     }

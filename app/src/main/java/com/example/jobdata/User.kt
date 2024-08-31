@@ -1,5 +1,7 @@
 package com.example.jobdata
 
+import android.widget.EditText
+
 data class User(
     val fullName: String,
     val address: String,
@@ -9,5 +11,6 @@ data class User(
     val diplomaSpecialisation: String?,
     val additionalSkills: String?,
     val tenthCertificateUrl: String?,
-    val twelfthCertificateUrl: String?
+    val twelfthCertificateUrl: String?,
+    val contactNumbers: String?
 )
