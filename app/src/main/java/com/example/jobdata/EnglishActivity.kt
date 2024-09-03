@@ -16,6 +16,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -99,62 +100,76 @@ class EnglishActivity : AppCompatActivity() {
             buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
-            buttonSubmit.setOnClickListener {
+        buttonSubmit.setOnClickListener {
 
-                val user = User(
-                    fullName = editTextFullName.text.toString(),
-                    address = editTextAddress.text.toString(),
-                    tenthPassingYear = spinner10thYear.selectedItem.toString(),
-                    twelfthPassingYear = spinner12thYear.selectedItem?.toString(),
-                    twelfthSpecialisation = spinner12thSpecialization.selectedItem?.toString(),
-                    diplomaSpecialisation = editTextDiplomaSpecialization.text?.toString(),
-                    additionalSkills = editTextSkills.text?.toString(),
-                    tenthCertificateUrl = tenthCertificateUri?.toString(),
-                    twelfthCertificateUrl = twelfthCertificateUri?.toString(),
-                    contactNumbers = textViewContactNumbers.text.toString()
+            val user = User(
+                fullName = editTextFullName.text.toString(),
+                address = editTextAddress.text.toString(),
+                tenthPassingYear = spinner10thYear.selectedItem.toString(),
+                twelfthPassingYear = spinner12thYear.selectedItem?.toString(),
+                twelfthSpecialisation = spinner12thSpecialization.selectedItem?.toString(),
+                diplomaSpecialisation = editTextDiplomaSpecialization.text?.toString(),
+                additionalSkills = editTextSkills.text?.toString(),
+                tenthCertificateUrl = tenthCertificateUri?.toString(),
+                twelfthCertificateUrl = twelfthCertificateUri?.toString(),
+                contactNumbers = textViewContactNumbers.text.toString()
+            )
 
-                )
-                    val userId = database.child("users").push().key
+            val userId = database.child("users").push().key
 
-                    if(editTextFullName.text.toString().isEmpty())
-                        Toast.makeText(this, "Name cannot be Empty", Toast.LENGTH_SHORT).show()
+            if (editTextFullName.text.toString().isEmpty()) {
+                Toast.makeText(this, "Name cannot be Empty", Toast.LENGTH_SHORT).show()
 
-                    else if(editTextAddress.text.toString().isEmpty())
-                        Toast.makeText(this, "Address cannot be Empty", Toast.LENGTH_SHORT).show()
+            } else if (editTextAddress.text.toString().isEmpty()) {
+                Toast.makeText(this, "Address cannot be Empty", Toast.LENGTH_SHORT).show()
 
-                    else if(textViewContactNumbers.text.toString().length!= 10)
-                        Toast.makeText(this, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
+            } else if (textViewContactNumbers.text.toString().length != 10) {
+                Toast.makeText(this, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
 
-                    else if(spinner10thYear.selectedItem.toString() == "N/A")
-                        Toast.makeText(this, "10th Passing Year cannot be Empty", Toast.LENGTH_SHORT).show()
+            } else if (spinner10thYear.selectedItem.toString() == "N/A") {
+                Toast.makeText(this, "10th Passing Year cannot be Empty", Toast.LENGTH_SHORT).show()
 
-                    else if(tenthCertificateUri == null)
-                        Toast.makeText(this, "10th Certificate cannot be Empty", Toast.LENGTH_SHORT).show()
+            } else if (tenthCertificateUri == null) {
+                Toast.makeText(this, "10th Certificate cannot be Empty", Toast.LENGTH_SHORT).show()
 
-                    else if (userId != null) {
-                        database.child("users").child(userId).setValue(user)
-                        Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                // Show confirmation dialog
+                AlertDialog.Builder(this)
+                    .setTitle("Confirm Submission")
+                    .setMessage("Are you sure you want to submit?")
+                    .setPositiveButton("Yes") { dialog, _ ->
+                        // Proceed with submission if user confirms
+                        if (userId != null) {
+                            database.child("users").child(userId).setValue(user)
+                            Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
 
-                        cleardata()
+                            cleardata()
 
-
-                        val animationView = findViewById<LottieAnimationView>(R.id.activity_splash)
-                        animationView?.apply {
-                            visibility = View.VISIBLE
-                            playAnimation()
-                            Handler(Looper.getMainLooper()).postAtTime({
-                                val intent = Intent(this@EnglishActivity, SplashActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                                startActivity(intent)
-                                finish()
-                            }, animationView.duration)
+                            val animationView = findViewById<LottieAnimationView>(R.id.activity_splash)
+                            animationView?.apply {
+                                visibility = View.VISIBLE
+                                playAnimation()
+                                Handler(Looper.getMainLooper()).postAtTime({
+                                    val intent = Intent(this@EnglishActivity, SplashActivity::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                    startActivity(intent)
+                                    finish()
+                                }, animationView.duration)
+                            }
+                        } else {
+                            Toast.makeText(this, "Failed to update profile!", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        Toast.makeText(this, "Failed to update profile!", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
                     }
-
-
+                    .setNegativeButton("No") { dialog, _ ->
+                        // Cancel submission if user declines
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
             }
+        }
+
 
 
     }

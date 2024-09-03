@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.database.DatabaseReference
@@ -103,8 +104,6 @@ class HindiActivity : AppCompatActivity() {
 
         buttonSubmit.setOnClickListener {
 
-
-
             val user = User(
                 fullName = editTextFullName.text.toString(),
                 address = editTextAddress.text.toString(),
@@ -115,51 +114,69 @@ class HindiActivity : AppCompatActivity() {
                 additionalSkills = editTextSkills.text?.toString(),
                 tenthCertificateUrl = tenthCertificateUri?.toString(),
                 twelfthCertificateUrl = twelfthCertificateUri?.toString(),
-               contactNumbers = textViewContactNumbers.text.toString()
+                contactNumbers = textViewContactNumbers.text.toString()
             )
 
             val userId = database.child("users").push().key
 
-            if(editTextFullName.text.toString().isEmpty())
+            if (editTextFullName.text.toString().isEmpty()) {
                 Toast.makeText(this, "नाम खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
 
-            else if(editTextAddress.text.toString().isEmpty())
+            } else if (editTextAddress.text.toString().isEmpty()) {
                 Toast.makeText(this, "पता खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
 
-            else if(textViewContactNumbers.text.toString().length != 10)
+            } else if (textViewContactNumbers.text.toString().length != 10) {
                 Toast.makeText(this, "अमान्य संपर्क नंबर", Toast.LENGTH_SHORT).show()
 
-            else if(spinner10thYear.selectedItem.toString() == "N/A")
+            } else if (spinner10thYear.selectedItem.toString() == "N/A") {
                 Toast.makeText(this, "10वीं पासिंग वर्ष खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
 
-            else if(tenthCertificateUri == null)
+            } else if (tenthCertificateUri == null) {
                 Toast.makeText(this, "10वीं का प्रमाण पत्र खाली नहीं हो सकता", Toast.LENGTH_SHORT).show()
 
-            else if (userId != null) {
-                database.child("users").child(userId).setValue(user)
-                Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
-
-                cleardata()
-
-                val animationView = findViewById<LottieAnimationView>(R.id.activity_splash)
-                animationView?.apply {
-                    visibility = View.VISIBLE
-                    playAnimation()
-                    Handler(Looper.getMainLooper()).postAtTime({
-                        val intent = Intent(this@HindiActivity, SplashActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                        startActivity(intent)
-                        finish()
-                    }, animationView.duration)
-                }
-
             } else {
-                Toast.makeText(this, "Failed to update profile!", Toast.LENGTH_SHORT).show()
+                // Show confirmation dialog
+                AlertDialog.Builder(this)
+                    .setTitle("पुष्टिकरण")
+                    .setMessage("क्या आप वास्तव में सबमिट करना चाहते हैं?")
+                    .setPositiveButton("हाँ") { dialog, _ ->
+                        // Proceed with submission if user confirms
+                        if (userId != null) {
+                            database.child("users").child(userId).setValue(user)
+                            Toast.makeText(this, "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई!", Toast.LENGTH_SHORT).show()
+
+                            cleardata()
+
+                            val animationView = findViewById<LottieAnimationView>(R.id.activity_splash)
+                            animationView?.apply {
+                                visibility = View.VISIBLE
+                                playAnimation()
+                                Handler(Looper.getMainLooper()).postAtTime({
+                                    val intent = Intent(this@HindiActivity, SplashActivity::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                    startActivity(intent)
+                                    finish()
+                                }, animationView.duration)
+                            }
+                        } else {
+                            Toast.makeText(this, "प्रोफ़ाइल अपडेट करने में विफल!", Toast.LENGTH_SHORT).show()
+                        }
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton("नहीं") { dialog, _ ->
+                        // Cancel submission if user declines
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
             }
+
+            // Disable the button for 3.2 seconds after the click to prevent multiple submissions
             buttonSubmit.isEnabled = false
             buttonSubmit.postDelayed({ buttonSubmit.isEnabled = true }, 3200)
-
         }
+
+
     }
 
     @SuppressLint("SetTextI18n")
