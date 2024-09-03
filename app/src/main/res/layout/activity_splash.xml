@@ -5,21 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity"
-    android:backgroundTint="@color/white">
+    android:backgroundTint="@color/design_default_color_surface"
+    tools:context=".SplashActivity">
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/activity_splash"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="486dp"
+        android:layout_height="755dp"
+        android:background="@color/white"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_rawRes="@raw/paytmanimation"
-        android:visibility="visible"
         app:lottie_autoPlay="true"
-        app:lottie_loop="false" />
-
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/animation40" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
