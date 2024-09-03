@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -40,6 +41,15 @@ class OdiaActivity : AppCompatActivity() {
     private lateinit var buttonSubmit: Button
     private lateinit var buttondelete: Button
     private lateinit var buttondelete1: Button
+    private lateinit var aadhaar:EditText
+    private lateinit var email: EditText
+    private lateinit var buttondelete3: Button
+    private lateinit var buttondelete4: Button
+    private lateinit var buttonpic: Button
+    private lateinit var buttonaadhaar: Button
+
+    private var picUrl: Uri? = null
+    private var aadhaarUrl: Uri? = null
 
     private var tenthCertificateUri: Uri? = null
     private var twelfthCertificateUri: Uri? = null
@@ -69,6 +79,12 @@ class OdiaActivity : AppCompatActivity() {
         buttonSubmit = findViewById(R.id.buttonSubmit)
         buttondelete = findViewById(R.id.buttonDelete)
         buttondelete1 = findViewById(R.id.buttonDelete1)
+        aadhaar=findViewById(R.id.editAadhaarNumber)
+        email=findViewById(R.id.editEmail)
+        buttondelete3 = findViewById(R.id.buttonDelete3)
+        buttondelete4 = findViewById(R.id.buttonDelete4)
+        buttonpic=findViewById(R.id.buttonUploadPic)
+        buttonaadhaar=findViewById(R.id.buttonUploadAadhaar)
 
 
         val years = listOf("N/A") + (2024 downTo 1990).map { it.toString() }
@@ -78,6 +94,17 @@ class OdiaActivity : AppCompatActivity() {
         spinner12thYear.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, years)
         spinner12thSpecialization.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, specializations)
+
+        buttonpic.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, 1)
+        }
+
+        buttonaadhaar.setOnClickListener {
+            intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "*/*"
+            startActivityForResult(intent, 2)
+        }
 
         buttonUploadFile10.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -102,6 +129,15 @@ class OdiaActivity : AppCompatActivity() {
             buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
+        buttondelete3.setOnClickListener {
+            buttonaadhaar.text = "Upload Certificate"
+            buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        }
+        buttondelete4.setOnClickListener {
+            buttonpic.text = "Upload Picture"
+            buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        }
+
         buttonSubmit.setOnClickListener {
 
             val user = User(
@@ -114,7 +150,11 @@ class OdiaActivity : AppCompatActivity() {
                 additionalSkills = editTextSkills.text?.toString(),
                 tenthCertificateUrl = tenthCertificateUri?.toString(),
                 twelfthCertificateUrl = twelfthCertificateUri?.toString(),
-                contactNumbers = textViewContactNumbers.text.toString()
+                contactNumbers = textViewContactNumbers.text.toString(),
+                aadhaarnumber = aadhaar.text?.toString(),
+                emailid = email.text?.toString(),
+                picurl = picUrl?.toString(),
+                aadhaarurl = aadhaarUrl?.toString()
             )
 
             val userId = database.child("users").push().key
@@ -128,11 +168,20 @@ class OdiaActivity : AppCompatActivity() {
             } else if (textViewContactNumbers.text.toString().length != 10) {
                 Toast.makeText(this, "ଅବେଧ ସମ୍ପର୍କ ସଂଖ୍ୟା", Toast.LENGTH_SHORT).show()
 
+            }  else if (aadhaar.text.toString().length != 12) {
+                Toast.makeText(this, "Invalid Aadhaar Number", Toast.LENGTH_SHORT).show()
+
             } else if (spinner10thYear.selectedItem.toString() == "N/A") {
                 Toast.makeText(this, "10ତମ ବର୍ଷ ଖାଲି ନହିଁ ହୋଇପାରେ", Toast.LENGTH_SHORT).show()
 
             } else if (tenthCertificateUri == null) {
                 Toast.makeText(this, "10ତମ ସର୍ଟିଫିକେଟ ଖାଲି ନହିଁ ହୋଇପାରେ", Toast.LENGTH_SHORT).show()
+
+            } else if (picUrl == null) {
+                Toast.makeText(this, "Profile pic cannot be Empty", Toast.LENGTH_SHORT).show()
+
+            }else if (aadhaarUrl == null) {
+                Toast.makeText(this, "Aadhaar Certificate cannot be Empty", Toast.LENGTH_SHORT).show()
 
             } else {
                 // Show confirmation dialog
@@ -185,6 +234,26 @@ class OdiaActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val name = editTextFullName.text.toString() // Get the name here
             when (requestCode) {
+                1 -> {
+                    picUrl = data?.data
+                    if (picUrl != null) {
+                        buttonpic.text = "Upload Successful"
+                        buttonpic.backgroundTintList =
+                            getColorStateList(android.R.color.holo_green_light)
+                        uploadFileToStorage(picUrl, "Profile_pic.pdf", name)
+                    }
+                }
+
+                2 -> {
+                    aadhaarUrl = data?.data
+                    if (aadhaarUrl != null) {
+                        buttonaadhaar.text = "Upload Successful"
+                        buttonaadhaar.backgroundTintList =
+                            getColorStateList(android.R.color.holo_green_light)
+                        uploadFileToStorage(aadhaarUrl, "Aadhaar_certificate.pdf", name)
+                    }
+                }
+
                 10 -> {
                     tenthCertificateUri = data?.data
                     if (tenthCertificateUri != null) {
@@ -214,6 +283,8 @@ class OdiaActivity : AppCompatActivity() {
         val fileName = when (fileType) {
             "10th_certificate.pdf" -> "10th_certificate_${name}.pdf"
             "12th_certificate.pdf" -> "12th_certificate_${name}.pdf"
+            "Profile_pic.pdf" -> "Profile_pic_${name}.pdf"
+            "Aadhaar_certificate.pdf" -> "Aadhaar_certificate_${name}.pdf"
             else -> "unknown_certificate_${name}.pdf"
         }
 
@@ -241,12 +312,16 @@ class OdiaActivity : AppCompatActivity() {
         super.onBackPressed()
         deleteFileFromStorage("10th_certificate.pdf", editTextFullName.text.toString())
         deleteFileFromStorage("12th_certificate.pdf", editTextFullName.text.toString())
+        deleteFileFromStorage("Profile_pic.pdf",editTextFullName.text.toString())
+        deleteFileFromStorage("Aadhaar_certificate.pdf",editTextFullName.text.toString())
     }
 
     private fun deleteFileFromStorage(fileType: String, name: String) {
         val fileName = when (fileType) {
             "10th_certificate.pdf" -> "10th_certificate_${name}.pdf"
             "12th_certificate.pdf" -> "12th_certificate_${name}.pdf"
+            "Profile_pic.pdf" -> "Profile_pic_${name}.pdf"
+            "Aadhaar_certificate.pdf" -> "Aadhaar_certificate_${name}.pdf"
             else -> "unknown_certificate_${name}.pdf"
         }
         val fileReference = storageReference.child("users/$name/$fileName")
@@ -267,8 +342,16 @@ class OdiaActivity : AppCompatActivity() {
         buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         buttonUploadFile12.text = "Upload Picture or PDF"
         buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        buttonpic.text = "Upload Picture"
+        buttonpic.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        buttonaadhaar.text = "Upload Certificate"
+        buttonaadhaar.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         tenthCertificateUri = null
         twelfthCertificateUri = null
+        picUrl= null
+        aadhaarUrl= null
+        aadhaar.text.clear()
+        email.text.clear()
 
     }
 }
