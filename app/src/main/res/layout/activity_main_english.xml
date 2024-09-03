@@ -111,6 +111,9 @@
             android:layout_height="wrap_content"
             android:hint="Enter Addhar Number"
             android:minHeight="48dp"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:maxLength="12"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
 
 

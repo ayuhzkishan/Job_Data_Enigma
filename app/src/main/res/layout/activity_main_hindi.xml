@@ -109,6 +109,9 @@
             android:layout_height="wrap_content"
             android:hint="आधार नंबर दर्ज करें"
             android:minHeight="48dp"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:maxLength="12"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
 
 
@@ -148,7 +151,7 @@
                 android:layout_marginTop="12dp"
                 android:backgroundTint="#ff33b5e5"
                 android:textColor="#455A64"
-                android:text="Upload Picture"
+                android:text="तस्वीर अपलोड करें"
                 android:textStyle="bold"
                 tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
 
@@ -159,12 +162,13 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="40dp"
                 android:backgroundTint="#F44336"
-                android:text="Delete picture"
+                android:text="तस्वीर हटाएं"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
 
         </LinearLayout>
+
 
 
         <TextView
