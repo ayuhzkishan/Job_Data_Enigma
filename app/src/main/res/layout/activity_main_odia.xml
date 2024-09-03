@@ -109,6 +109,9 @@
             android:layout_height="wrap_content"
             android:hint="ଆଧାର ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ |"
             android:minHeight="48dp"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:maxLength="12"
             tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
 
 
@@ -137,35 +140,38 @@
         android:textSize="18sp"
         android:padding="3dp"
         tools:ignore="HardcodedText" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="6dp">
 
-        <Button
-            android:id="@+id/buttonUploadFile_Addhar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#ff33b5e5"
-            android:textColor="#455A64"
-            android:text="Upload Picture"
-            android:textStyle="bold"
-            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
 
-        <Button
-            android:id="@+id/buttonDelete3"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="40dp"
-            android:backgroundTint="#F44336"
-            android:text="Delete picture"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <Button
+                android:id="@+id/buttonUploadFile_Addhar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#ff33b5e5"
+                android:textColor="#455A64"
+                android:text="ଚିତ୍ର ଅପଲୋଡ୍ କରନ୍ତୁ"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+            <Button
+                android:id="@+id/buttonDelete3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="#F44336"
+                android:text="ଚିତ୍ର ହଟାନ୍ତୁ"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+        </LinearLayout>
 
 
 
