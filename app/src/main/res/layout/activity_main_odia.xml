@@ -92,7 +92,81 @@
                 android:layout_weight="9"
                 />
 
+
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ଆଧାର ନମ୍ବର*"
+            android:textSize="18sp"
+            android:padding="3dp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editAddharNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ଆଧାର ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ |"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ଇମେଲ୍ ID *"
+            android:textSize="18sp"
+            android:padding="3dp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ଇମେଲ୍ ID ପ୍ରବେଶ କରନ୍ତୁ "
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ଆବେଦନକାରୀଙ୍କ ଫଟୋ*"
+        android:textSize="18sp"
+        android:padding="3dp"
+        tools:ignore="HardcodedText" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp">
+
+        <Button
+            android:id="@+id/buttonUploadFile_Addhar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#ff33b5e5"
+            android:textColor="#455A64"
+            android:text="Upload Picture"
+            android:textStyle="bold"
+            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+        <Button
+            android:id="@+id/buttonDelete3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#F44336"
+            android:text="Delete picture"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+    </LinearLayout>
+
 
 
         <TextView
@@ -258,7 +332,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_rawRes="@raw/paytmanimation"
+            app:lottie_rawRes="@raw/animation40"
             android:visibility="gone"
             app:lottie_autoPlay="true"
             app:lottie_loop="false" />

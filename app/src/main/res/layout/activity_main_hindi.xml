@@ -76,7 +76,8 @@
                 android:gravity="center_vertical"
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                tools:ignore="RtlCompat" />
 
             <EditText
                 android:id="@+id/editTextContacts"
@@ -91,6 +92,77 @@
                 android:padding="8dp"
                 android:layout_weight="9"
                 />
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="आधार नंबर*"
+            android:textSize="18sp"
+            android:padding="3dp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/editAddharNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="आधार नंबर दर्ज करें"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="ईमेल आईडी*"
+            android:textSize="18sp"
+            android:padding="3dp"
+            tools:ignore="HardcodedText" />
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ईमेल आईडी दर्ज करें"
+            android:minHeight="48dp"
+            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TextFields,VisualLintTextFieldSize,TouchTargetSizeCheck" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="आवेदकों की फोटो*"
+            android:textSize="18sp"
+            android:padding="3dp"
+            tools:ignore="HardcodedText" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp">
+
+            <Button
+                android:id="@+id/buttonUploadFile_Addhar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#ff33b5e5"
+                android:textColor="#455A64"
+                android:text="Upload Picture"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
+
+            <Button
+                android:id="@+id/buttonDelete3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="40dp"
+                android:backgroundTint="#F44336"
+                android:text="Delete picture"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck,HardcodedText,TextContrastCheck" />
 
         </LinearLayout>
 
@@ -258,7 +330,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_rawRes="@raw/paytmanimation"
+            app:lottie_rawRes="@raw/animation40"
             android:visibility="gone"
             app:lottie_autoPlay="true"
             app:lottie_loop="false" />
