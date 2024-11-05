@@ -41,18 +41,22 @@ class EnglishActivity : AppCompatActivity() {
     private lateinit var buttonUploadFile12: Button
     private lateinit var buttonSubmit: Button
     private lateinit var buttondelete: Button
-    private lateinit var buttondelete1: Button
+    private lateinit var buttonDelete_12: Button
     private lateinit var aadhaar:EditText
     private lateinit var email: EditText
     private lateinit var buttondelete3: Button
     private lateinit var buttondelete4: Button
     private lateinit var buttonpic: Button
     private lateinit var buttonaadhaar: Button
+    private lateinit var editTextExperience:EditText
+    private lateinit var buttonUploadFile_experience:Button
+    private lateinit var buttonDelete_Experience:Button
 
     private var picUrl: Uri? = null
     private var aadhaarUrl: Uri? = null
     private var tenthCertificateUri: Uri? = null
     private var twelfthCertificateUri: Uri? = null
+    private var experienceCertificateUri: Uri? = null
 
     @SuppressLint("SetTextI18n", "MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,8 +66,7 @@ class EnglishActivity : AppCompatActivity() {
         val textViewContactNumbers = findViewById<EditText>(R.id.editTextContacts)
 
 
-
-            database = FirebaseDatabase.getInstance().reference
+        database = FirebaseDatabase.getInstance().reference
         storage = FirebaseStorage.getInstance()
         storageReference = storage.reference
 
@@ -78,13 +81,17 @@ class EnglishActivity : AppCompatActivity() {
         buttonUploadFile12 = findViewById(R.id.buttonUploadFile_12)
         buttonSubmit = findViewById(R.id.buttonSubmit)
         buttondelete = findViewById(R.id.buttonDelete)
-        buttondelete1 = findViewById(R.id.buttonDelete1)
+        buttonDelete_12 = findViewById(R.id.buttonDelete_12)
         aadhaar=findViewById(R.id.editAadhaarNumber)
         email=findViewById(R.id.editEmail)
         buttondelete3 = findViewById(R.id.buttonDelete3)
         buttondelete4 = findViewById(R.id.buttonDelete4)
         buttonpic=findViewById(R.id.buttonUploadPic)
         buttonaadhaar=findViewById(R.id.buttonUploadAadhaar)
+        editTextExperience=findViewById(R.id.editTextExperience)
+        buttonUploadFile_experience=findViewById(R.id.buttonUploadFile_experience)
+        buttonDelete_Experience=findViewById(R.id.buttonDelete_Experience)
+
 
         val years = listOf("N/A") + (2024 downTo 1990).map { it.toString() }
         val specializations = listOf("N/A", "Arts", "Commerce", "PCM", "PCB")
@@ -115,14 +122,23 @@ class EnglishActivity : AppCompatActivity() {
             intent.type = "*/*"
             startActivityForResult(intent, 12)
         }
+        buttonUploadFile_experience.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "*/*"
+            startActivityForResult(intent, 14)
+        }
 
         buttondelete.setOnClickListener {
             buttonUploadFile10.text = "Upload Certificate"
             buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
-        buttondelete1.setOnClickListener {
+        buttonDelete_12.setOnClickListener {
             buttonUploadFile12.text = "Upload Certificate"
             buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        }
+        buttonDelete_Experience.setOnClickListener {
+            buttonUploadFile_experience.text = "Upload Certificate"
+            buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
         buttondelete3.setOnClickListener {
@@ -149,7 +165,9 @@ class EnglishActivity : AppCompatActivity() {
                 aadhaarnumber = aadhaar.text?.toString(),
                 emailid = email.text?.toString(),
                 picurl = picUrl?.toString(),
-                aadhaarurl = aadhaarUrl?.toString()
+                aadhaarurl = aadhaarUrl?.toString(),
+                experience = editTextExperience.text?.toString(),
+                experienceCertificateUrl = experienceCertificateUri?.toString()
             )
 
             val userId = database.child("users").push().key
@@ -268,6 +286,19 @@ class EnglishActivity : AppCompatActivity() {
                         uploadFileToStorage(twelfthCertificateUri, "12th_certificate.pdf", name)
                     }
                 }
+                14 -> {
+                    experienceCertificateUri = data?.data
+                    if (experienceCertificateUri != null) {
+                        buttonUploadFile_experience.text = "Upload Successful"
+                        buttonUploadFile_experience.backgroundTintList =
+                            getColorStateList(android.R.color.holo_green_light)
+                        uploadFileToStorage(
+                            experienceCertificateUri,
+                            "Experience_certificate.pdf",
+                            name
+                        )
+                    }
+                }
             }
         }
     }
@@ -279,6 +310,7 @@ class EnglishActivity : AppCompatActivity() {
             "12th_certificate.pdf" -> "12th_certificate_${name}.pdf"
             "Profile_pic.pdf" -> "Profile_pic_${name}.pdf"
             "Aadhaar_certificate.pdf" -> "Aadhaar_certificate_${name}.pdf"
+            "Experience_certificate.pdf" -> "Experience_certificate_${name}.pdf"
             else -> "unknown_certificate_${name}.pdf"
         }
         val fileReference = storageReference.child("users/$name/$fileName")
@@ -301,6 +333,9 @@ class EnglishActivity : AppCompatActivity() {
                     "Aadhaar_certificate.pdf" -> {
                         aadhaarUrl= uri
                     }
+                    "Experience_certificate.pdf" -> {
+                        experienceCertificateUri= uri
+                    }
                 }
             }
         }.addOnFailureListener {
@@ -315,6 +350,7 @@ class EnglishActivity : AppCompatActivity() {
         deleteFileFromStorage("12th_certificate.pdf", editTextFullName.text.toString())
         deleteFileFromStorage("Profile_pic.pdf",editTextFullName.text.toString())
         deleteFileFromStorage("Aadhaar_certificate.pdf",editTextFullName.text.toString())
+        deleteFileFromStorage("Experience_certificate.pdf",editTextFullName.text.toString())
     }
 
     private fun deleteFileFromStorage(fileType: String, name: String) {
@@ -323,6 +359,7 @@ class EnglishActivity : AppCompatActivity() {
             "12th_certificate.pdf" -> "12th_certificate_${name}.pdf"
             "Profile_pic.pdf" -> "Profile_pic_${name}.pdf"
             "Aadhaar_certificate.pdf" -> "Aadhaar_certificate_${name}.pdf"
+            "Experience_certificate.pdf" -> "Experience_certificate_${name}.pdf"
             else -> "unknown_certificate_${name}.pdf"
         }
         val fileReference = storageReference.child("users/$name/$fileName")
@@ -353,5 +390,9 @@ class EnglishActivity : AppCompatActivity() {
         aadhaarUrl= null
         aadhaar.text.clear()
         email.text.clear()
+        editTextExperience.text.clear()
+        buttonUploadFile_experience.text = "Upload Certificate"
+        buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        experienceCertificateUri = null
     }
 }

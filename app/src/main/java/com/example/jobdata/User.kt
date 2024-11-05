@@ -14,5 +14,7 @@ data class User(
     val aadhaarnumber: String?,
     val emailid: String?,
     val picurl: String?,
-    val aadhaarurl: String?
+    val aadhaarurl: String?,
+    val experience: String?,
+    val experienceCertificateUrl: String?
 )

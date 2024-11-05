@@ -40,19 +40,23 @@ class OdiaActivity : AppCompatActivity() {
     private lateinit var buttonUploadFile12: Button
     private lateinit var buttonSubmit: Button
     private lateinit var buttondelete: Button
-    private lateinit var buttondelete1: Button
+    private lateinit var buttonDelete_12: Button
     private lateinit var aadhaar:EditText
     private lateinit var email: EditText
     private lateinit var buttondelete3: Button
     private lateinit var buttondelete4: Button
     private lateinit var buttonpic: Button
     private lateinit var buttonaadhaar: Button
+    private lateinit var editTextExperience:EditText
+    private lateinit var buttonUploadFile_experience:Button
+    private lateinit var buttonDelete_Experience:Button
 
     private var picUrl: Uri? = null
     private var aadhaarUrl: Uri? = null
 
     private var tenthCertificateUri: Uri? = null
     private var twelfthCertificateUri: Uri? = null
+    private var experienceCertificateUri: Uri? = null
 
 
     @SuppressLint("SetTextI18n", "CutPasteId")
@@ -78,13 +82,16 @@ class OdiaActivity : AppCompatActivity() {
         buttonUploadFile12 = findViewById(R.id.buttonUploadFile_12)
         buttonSubmit = findViewById(R.id.buttonSubmit)
         buttondelete = findViewById(R.id.buttonDelete)
-        buttondelete1 = findViewById(R.id.buttonDelete1)
+        buttonDelete_12 = findViewById(R.id.buttonDelete_12)
         aadhaar=findViewById(R.id.editAadhaarNumber)
         email=findViewById(R.id.editEmail)
         buttondelete3 = findViewById(R.id.buttonDelete3)
         buttondelete4 = findViewById(R.id.buttonDelete4)
         buttonpic=findViewById(R.id.buttonUploadPic)
         buttonaadhaar=findViewById(R.id.buttonUploadAadhaar)
+        editTextExperience=findViewById(R.id.editTextExperience)
+        buttonUploadFile_experience=findViewById(R.id.buttonUploadFile_experience)
+        buttonDelete_Experience=findViewById(R.id.buttonDelete_Experience)
 
 
         val years = listOf("N/A") + (2024 downTo 1990).map { it.toString() }
@@ -117,6 +124,11 @@ class OdiaActivity : AppCompatActivity() {
             intent.type="*/*"
             startActivityForResult(intent, 12)
         }
+        buttonUploadFile_experience.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type="*/*"
+            startActivityForResult(intent, 14)
+        }
 
         buttondelete.setOnClickListener {
             buttonUploadFile10.text = "Upload Picture or PDF"
@@ -124,9 +136,13 @@ class OdiaActivity : AppCompatActivity() {
 
         }
 
-        buttondelete1.setOnClickListener {
+        buttonDelete_12.setOnClickListener {
             buttonUploadFile12.text = "Upload Picture or PDF"
             buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        }
+        buttonDelete_Experience.setOnClickListener {
+            buttonUploadFile_experience.text = "Upload Picture or PDF"
+            buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
         buttondelete3.setOnClickListener {
@@ -154,7 +170,9 @@ class OdiaActivity : AppCompatActivity() {
                 aadhaarnumber = aadhaar.text?.toString(),
                 emailid = email.text?.toString(),
                 picurl = picUrl?.toString(),
-                aadhaarurl = aadhaarUrl?.toString()
+                aadhaarurl = aadhaarUrl?.toString(),
+                experience = editTextExperience.text?.toString(),
+                experienceCertificateUrl = experienceCertificateUri?.toString()
             )
 
             val userId = database.child("users").push().key
@@ -273,6 +291,14 @@ class OdiaActivity : AppCompatActivity() {
                         uploadFileToStorage(twelfthCertificateUri, "12th_certificate.pdf", name)
                     }
                 }
+                14->{
+                    experienceCertificateUri = data?.data
+                    if (experienceCertificateUri != null) {
+                        buttonUploadFile_experience.text = "advisor_certificate.pdf"
+                        buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_green_light)
+                        uploadFileToStorage(experienceCertificateUri, "experience_certificate.pdf", name)
+                    }
+                }
             }
         }
     }
@@ -285,6 +311,7 @@ class OdiaActivity : AppCompatActivity() {
             "12th_certificate.pdf" -> "12th_certificate_${name}.pdf"
             "Profile_pic.pdf" -> "Profile_pic_${name}.pdf"
             "Aadhaar_certificate.pdf" -> "Aadhaar_certificate_${name}.pdf"
+            "experience_certificate.pdf" -> "experience_certificate_${name}.pdf"
             else -> "unknown_certificate_${name}.pdf"
         }
 
@@ -300,6 +327,15 @@ class OdiaActivity : AppCompatActivity() {
                         "12th_certificate.pdf" -> {
                             twelfthCertificateUri = uri
                         }
+                        "Profile_pic.pdf" -> {
+                            picUrl = uri
+                        }
+                        "Aadhaar_certificate.pdf" -> {
+                            aadhaarUrl = uri
+                        }
+                        "experience_certificate.pdf" -> {
+                            experienceCertificateUri = uri
+                        }
                     }
                 }
             }.addOnFailureListener {
@@ -314,6 +350,7 @@ class OdiaActivity : AppCompatActivity() {
         deleteFileFromStorage("12th_certificate.pdf", editTextFullName.text.toString())
         deleteFileFromStorage("Profile_pic.pdf",editTextFullName.text.toString())
         deleteFileFromStorage("Aadhaar_certificate.pdf",editTextFullName.text.toString())
+        deleteFileFromStorage("experience_certificate.pdf",editTextFullName.text.toString())
     }
 
     private fun deleteFileFromStorage(fileType: String, name: String) {
@@ -322,6 +359,7 @@ class OdiaActivity : AppCompatActivity() {
             "12th_certificate.pdf" -> "12th_certificate_${name}.pdf"
             "Profile_pic.pdf" -> "Profile_pic_${name}.pdf"
             "Aadhaar_certificate.pdf" -> "Aadhaar_certificate_${name}.pdf"
+            "experience_certificate.pdf" -> "experience_certificate_${name}.pdf"
             else -> "unknown_certificate_${name}.pdf"
         }
         val fileReference = storageReference.child("users/$name/$fileName")
@@ -352,6 +390,10 @@ class OdiaActivity : AppCompatActivity() {
         aadhaarUrl= null
         aadhaar.text.clear()
         email.text.clear()
+        editTextExperience.text.clear()
+        buttonUploadFile_experience.text = "Upload Picture or PDF"
+        buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        experienceCertificateUri = null
 
     }
 }
