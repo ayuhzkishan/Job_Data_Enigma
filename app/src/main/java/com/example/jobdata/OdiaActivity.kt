@@ -40,7 +40,7 @@ class OdiaActivity : AppCompatActivity() {
     private lateinit var buttonUploadFile12: Button
     private lateinit var buttonSubmit: Button
     private lateinit var buttondelete: Button
-    private lateinit var buttonDelete_12: Button
+    private lateinit var buttonDelete12: Button
     private lateinit var aadhaar:EditText
     private lateinit var email: EditText
     private lateinit var buttondelete3: Button
@@ -48,8 +48,8 @@ class OdiaActivity : AppCompatActivity() {
     private lateinit var buttonpic: Button
     private lateinit var buttonaadhaar: Button
     private lateinit var editTextExperience:EditText
-    private lateinit var buttonUploadFile_experience:Button
-    private lateinit var buttonDelete_Experience:Button
+    private lateinit var buttonUploadFileexperience:Button
+    private lateinit var buttonDeleteExperience:Button
 
     private var picUrl: Uri? = null
     private var aadhaarUrl: Uri? = null
@@ -82,7 +82,7 @@ class OdiaActivity : AppCompatActivity() {
         buttonUploadFile12 = findViewById(R.id.buttonUploadFile_12)
         buttonSubmit = findViewById(R.id.buttonSubmit)
         buttondelete = findViewById(R.id.buttonDelete)
-        buttonDelete_12 = findViewById(R.id.buttonDelete_12)
+        buttonDelete12 = findViewById(R.id.buttonDelete_12)
         aadhaar=findViewById(R.id.editAadhaarNumber)
         email=findViewById(R.id.editEmail)
         buttondelete3 = findViewById(R.id.buttonDelete3)
@@ -90,8 +90,8 @@ class OdiaActivity : AppCompatActivity() {
         buttonpic=findViewById(R.id.buttonUploadPic)
         buttonaadhaar=findViewById(R.id.buttonUploadAadhaar)
         editTextExperience=findViewById(R.id.editTextExperience)
-        buttonUploadFile_experience=findViewById(R.id.buttonUploadFile_experience)
-        buttonDelete_Experience=findViewById(R.id.buttonDelete_Experience)
+        buttonUploadFileexperience=findViewById(R.id.buttonUploadFile_experience)
+        buttonDeleteExperience=findViewById(R.id.buttonDelete_Experience)
 
 
         val years = listOf("N/A") + (2024 downTo 1990).map { it.toString() }
@@ -124,34 +124,34 @@ class OdiaActivity : AppCompatActivity() {
             intent.type="*/*"
             startActivityForResult(intent, 12)
         }
-        buttonUploadFile_experience.setOnClickListener {
+        buttonUploadFileexperience.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type="*/*"
             startActivityForResult(intent, 14)
         }
 
         buttondelete.setOnClickListener {
-            buttonUploadFile10.text = "Upload Picture or PDF"
+            buttonUploadFile10.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
             buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
 
         }
 
-        buttonDelete_12.setOnClickListener {
-            buttonUploadFile12.text = "Upload Picture or PDF"
+        buttonDelete12.setOnClickListener {
+            buttonUploadFile12.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
             buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
-        buttonDelete_Experience.setOnClickListener {
-            buttonUploadFile_experience.text = "Upload Picture or PDF"
-            buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        buttonDeleteExperience.setOnClickListener {
+            buttonUploadFileexperience.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
+            buttonUploadFileexperience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
-        buttondelete3.setOnClickListener {
-            buttonaadhaar.text = "Upload Certificate"
-            buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
-        }
         buttondelete4.setOnClickListener {
-            buttonpic.text = "Upload Picture"
-            buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+            buttonaadhaar.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
+            buttonaadhaar.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        }
+        buttondelete3.setOnClickListener {
+            buttonpic.text = "ଚିତ୍ର ଅପଲୋଡ୍ କରନ୍ତୁ"
+            buttonpic.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
         buttonSubmit.setOnClickListener {
@@ -255,7 +255,7 @@ class OdiaActivity : AppCompatActivity() {
                 1 -> {
                     picUrl = data?.data
                     if (picUrl != null) {
-                        buttonpic.text = "Upload Successful"
+                        buttonpic.text =  "ଅପଲୋଡ୍ ସଫଳ"
                         buttonpic.backgroundTintList =
                             getColorStateList(android.R.color.holo_green_light)
                         uploadFileToStorage(picUrl, "Profile_pic.pdf", name)
@@ -265,7 +265,7 @@ class OdiaActivity : AppCompatActivity() {
                 2 -> {
                     aadhaarUrl = data?.data
                     if (aadhaarUrl != null) {
-                        buttonaadhaar.text = "Upload Successful"
+                        buttonaadhaar.text = "ଅପଲୋଡ୍ ସଫଳ"
                         buttonaadhaar.backgroundTintList =
                             getColorStateList(android.R.color.holo_green_light)
                         uploadFileToStorage(aadhaarUrl, "Aadhaar_certificate.pdf", name)
@@ -294,8 +294,8 @@ class OdiaActivity : AppCompatActivity() {
                 14->{
                     experienceCertificateUri = data?.data
                     if (experienceCertificateUri != null) {
-                        buttonUploadFile_experience.text = "advisor_certificate.pdf"
-                        buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_green_light)
+                        buttonUploadFileexperience.text = "advisor_certificate.pdf"
+                        buttonUploadFileexperience.backgroundTintList = getColorStateList(android.R.color.holo_green_light)
                         uploadFileToStorage(experienceCertificateUri, "experience_certificate.pdf", name)
                     }
                 }
@@ -376,13 +376,13 @@ class OdiaActivity : AppCompatActivity() {
         spinner12thSpecialization.setSelection(0)
         editTextDiplomaSpecialization.text.clear()
         editTextSkills.text.clear()
-        buttonUploadFile10.text = "Upload Picture or PDF"
+        buttonUploadFile10.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
         buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
-        buttonUploadFile12.text = "Upload Picture or PDF"
+        buttonUploadFile12.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
         buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
-        buttonpic.text = "Upload Picture"
+        buttonpic.text = "ଚିତ୍ର ଅପଲୋଡ୍ କରନ୍ତୁ"
         buttonpic.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
-        buttonaadhaar.text = "Upload Certificate"
+        buttonaadhaar.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
         buttonaadhaar.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         tenthCertificateUri = null
         twelfthCertificateUri = null
@@ -391,8 +391,8 @@ class OdiaActivity : AppCompatActivity() {
         aadhaar.text.clear()
         email.text.clear()
         editTextExperience.text.clear()
-        buttonUploadFile_experience.text = "Upload Picture or PDF"
-        buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        buttonUploadFileexperience.text = "ସାର୍ଟିଫିକେଟ୍ ଅପଲୋଡ୍ କରନ୍ତୁ"
+        buttonUploadFileexperience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         experienceCertificateUri = null
 
     }
