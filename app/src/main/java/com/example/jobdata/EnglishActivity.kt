@@ -41,7 +41,7 @@ class EnglishActivity : AppCompatActivity() {
     private lateinit var buttonUploadFile12: Button
     private lateinit var buttonSubmit: Button
     private lateinit var buttondelete: Button
-    private lateinit var buttonDelete_12: Button
+    private lateinit var buttonDelete12: Button
     private lateinit var aadhaar:EditText
     private lateinit var email: EditText
     private lateinit var buttondelete3: Button
@@ -49,8 +49,8 @@ class EnglishActivity : AppCompatActivity() {
     private lateinit var buttonpic: Button
     private lateinit var buttonaadhaar: Button
     private lateinit var editTextExperience:EditText
-    private lateinit var buttonUploadFile_experience:Button
-    private lateinit var buttonDelete_Experience:Button
+    private lateinit var buttonUploadFileexperience:Button
+    private lateinit var buttonDeleteExperience:Button
 
     private var picUrl: Uri? = null
     private var aadhaarUrl: Uri? = null
@@ -81,7 +81,7 @@ class EnglishActivity : AppCompatActivity() {
         buttonUploadFile12 = findViewById(R.id.buttonUploadFile_12)
         buttonSubmit = findViewById(R.id.buttonSubmit)
         buttondelete = findViewById(R.id.buttonDelete)
-        buttonDelete_12 = findViewById(R.id.buttonDelete_12)
+        buttonDelete12 = findViewById(R.id.buttonDelete_12)
         aadhaar=findViewById(R.id.editAadhaarNumber)
         email=findViewById(R.id.editEmail)
         buttondelete3 = findViewById(R.id.buttonDelete3)
@@ -89,8 +89,8 @@ class EnglishActivity : AppCompatActivity() {
         buttonpic=findViewById(R.id.buttonUploadPic)
         buttonaadhaar=findViewById(R.id.buttonUploadAadhaar)
         editTextExperience=findViewById(R.id.editTextExperience)
-        buttonUploadFile_experience=findViewById(R.id.buttonUploadFile_experience)
-        buttonDelete_Experience=findViewById(R.id.buttonDelete_Experience)
+        buttonUploadFileexperience=findViewById(R.id.buttonUploadFile_experience)
+        buttonDeleteExperience=findViewById(R.id.buttonDelete_Experience)
 
 
         val years = listOf("N/A") + (2024 downTo 1990).map { it.toString() }
@@ -122,7 +122,7 @@ class EnglishActivity : AppCompatActivity() {
             intent.type = "*/*"
             startActivityForResult(intent, 12)
         }
-        buttonUploadFile_experience.setOnClickListener {
+        buttonUploadFileexperience.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "*/*"
             startActivityForResult(intent, 14)
@@ -132,22 +132,22 @@ class EnglishActivity : AppCompatActivity() {
             buttonUploadFile10.text = "Upload Certificate"
             buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
-        buttonDelete_12.setOnClickListener {
+        buttonDelete12.setOnClickListener {
             buttonUploadFile12.text = "Upload Certificate"
             buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
-        buttonDelete_Experience.setOnClickListener {
-            buttonUploadFile_experience.text = "Upload Certificate"
-            buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        buttonDeleteExperience.setOnClickListener {
+            buttonUploadFileexperience.text = "Upload Certificate"
+            buttonUploadFileexperience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
-        buttondelete3.setOnClickListener {
-            buttonaadhaar.text = "Upload Certificate"
-            buttonUploadFile10.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
-        }
         buttondelete4.setOnClickListener {
+            buttonaadhaar.text = "Upload Certificate"
+            buttonaadhaar.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        }
+        buttondelete3.setOnClickListener {
             buttonpic.text = "Upload Picture"
-            buttonUploadFile12.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+            buttonpic.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         }
 
         buttonSubmit.setOnClickListener {
@@ -289,8 +289,8 @@ class EnglishActivity : AppCompatActivity() {
                 14 -> {
                     experienceCertificateUri = data?.data
                     if (experienceCertificateUri != null) {
-                        buttonUploadFile_experience.text = "Upload Successful"
-                        buttonUploadFile_experience.backgroundTintList =
+                        buttonUploadFileexperience.text = "Upload Successful"
+                        buttonUploadFileexperience.backgroundTintList =
                             getColorStateList(android.R.color.holo_green_light)
                         uploadFileToStorage(
                             experienceCertificateUri,
@@ -391,8 +391,8 @@ class EnglishActivity : AppCompatActivity() {
         aadhaar.text.clear()
         email.text.clear()
         editTextExperience.text.clear()
-        buttonUploadFile_experience.text = "Upload Certificate"
-        buttonUploadFile_experience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
+        buttonUploadFileexperience.text = "Upload Certificate"
+        buttonUploadFileexperience.backgroundTintList = getColorStateList(android.R.color.holo_blue_light)
         experienceCertificateUri = null
     }
 }
